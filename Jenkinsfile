@@ -24,12 +24,12 @@ pipeline{
         }
 
         // Stage3 : Publish the source code to Sonarqube
-        stage ('Deploy'){
+        stage ('deploy'){
             steps {
-                echo ' deploying....'
+                echo ' deploying......'
                 // withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
                 //      sh 'mvn sonar:sonar'
-                }
+                // }
 
             }
         }
