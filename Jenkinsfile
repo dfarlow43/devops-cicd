@@ -33,16 +33,20 @@ pipeline{
 
         stage ('Publish to nexus') {
             steps{
-                nexusArtifactUploader artifacts: 
-                [[artifactId: "${ArtifactId}", classifier: '', 
-                file: 'target/'+ "${Name}" + '-'+ "${Version}.war", type: 'war']], 
-                credentialsId: '687c73af-242d-4f23-808d-935b04e7cfb9', 
-                groupId: "${GroupID}" , 
-                nexusUrl: '172.20.10.79:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'DfDevopsLab-snapshot', 
-                version: "${Version}"
+                script{
+
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "DfDevopsLab-snapshot": "DFDevopsLab-Release"
+                    nexusArtifactUploader artifacts: 
+                    [[artifactId: "${ArtifactId}", classifier: '', 
+                    file: 'target/'+ "${Name}" + '-'+ "${Version}.war", type: 'war']], 
+                    credentialsId: '687c73af-242d-4f23-808d-935b04e7cfb9', 
+                    groupId: "${GroupID}" , 
+                    nexusUrl: '172.20.10.79:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: "${NexusRepo}", 
+                    version: "${Version}"
+                }
             }
         }
 
