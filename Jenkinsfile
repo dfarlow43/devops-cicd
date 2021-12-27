@@ -62,7 +62,7 @@ pipeline{
 
 
         // Stage3 : Publish the source code to Sonarqube
-        stage ('deploy'){
+        stage ('deploy to ec2'){
             steps {
                 echo ' deploying......'
                 sshPublisher(publishers: [sshPublisherDesc(
@@ -70,6 +70,23 @@ pipeline{
                     transfers: [sshTransfer(
                         cleanRemote: false, 
                         execCommand: 'ansible-playbook -i /opt/playbooks/hosts /opt/playbooks/download_deploy_artifact.yml', 
+                        execTimeout: 120000, 
+                      )], 
+                        usePromotionTimestamp: false, 
+                        useWorkspaceInPromotion: false, 
+                        verbose: false)])
+
+            }
+        }
+
+        stage ('deploy to docker'){
+            steps {
+                echo ' deploying......'
+                sshPublisher(publishers: [sshPublisherDesc(
+                    configName: 'Ansible_Controller', 
+                    transfers: [sshTransfer(
+                        cleanRemote: false, 
+                        execCommand: 'ansible-playbook -i /opt/playbooks/hosts /opt/playbooks/deploy_war_docker.yml', 
                         execTimeout: 120000, 
                       )], 
                         usePromotionTimestamp: false, 
