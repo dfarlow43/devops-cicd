@@ -55,7 +55,7 @@
         <p>This is Vinays DevOps AWS Lab</p>
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
         <p><a class="btn btn-primary btn-lg" role="button">Success!! more &raquo;</a></p>
-        <p><a class="btn btn-primary btn-lg" role="button">Help;</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button">Need Help?</a></p>
     </div>
 </div>
 
